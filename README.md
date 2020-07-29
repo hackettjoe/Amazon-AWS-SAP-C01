@@ -147,11 +147,23 @@ AWS KMS supports symmetric and asymmetric CMKs.
 - Asymmetric CMK: Represents a mathematically related public key and private key pair that you can use for encryption and decryption or signing and verification, but not both. The private key never leaves AWS KMS unencrypted. You can use the public key within AWS KMS by calling the AWS KMS API operations, or download the public key and use it outside of AWS KMS.
 
 Valid key usage for CMK types
-| CMK Type | Encrypt and decrypt | sign and verify |
+| CMK Type | Encrypt and decrypt | Sign and verify |
 | --------|---------|-------|
 | Symmetric CMKs  | Yes | No |
 | Asymmetric CMKs with RSA key pairs | Yes | Yes |
 | Asymmetric CMKs with ECC key pairs | No | Yes |
+
+Rotating Keys
+Cryptographic best practices discourage extensive reuse of encryption keys. To create new cryptographic material for your AWS Key Management Service (AWS KMS) customer master keys (CMKs), you can create new CMKs, and then change your applications or aliases to use the new CMKs. When you enable automatic key rotation for a customer managed CMK, AWS KMS generates new cryptographic material for the CMK every year. AWS KMS also saves the CMK's older cryptographic material in perpetuity so it can be used to decrypt data that it encrypted. AWS KMS does not delete any rotated key material until you delete the CMK.
+
+Custom Key Store
+AWS KMS supports custom key stores backed by AWS CloudHSM clusters. When you create an AWS KMS customer master key (CMK) in a custom key store, AWS KMS generates and stores non-extractable key material for the CMK in an AWS CloudHSM cluster that you own and manage. When you use a CMK in a custom key store, the cryptographic operations are performed in the HSMs in the cluster. This feature combines the convenience and widespread integration of AWS KMS with the added control of an AWS CloudHSM cluster in your AWS account.
+
+Use Key Store if you have the following requirements
+- Key material cannot be stored in a shared environment.
+- Key material must be backed up in multiple AWS Regions.
+- Key material must be subject to a secondary, independent audit path.
+- The HSMs that generate and store key material must be certified at FIPS 140-2 Level 3.
 
 #### Parameter Store
 
