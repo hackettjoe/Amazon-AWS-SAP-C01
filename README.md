@@ -118,10 +118,40 @@ AWS SSO is integrated with AWS CloudTrail = use it!
 ## Security
 
 #### Cloudtrail
+AWS CloudTrail is an AWS service that helps you enable governance, compliance, and operational and risk auditing of your AWS account. Actions taken by a user, role, or an AWS service are recorded as events in CloudTrail. Events include actions taken in the AWS Management Console, AWS Command Line Interface, and AWS SDKs and APIs.
+  - By default, trails log management events, but not data events (Data events are disabled by default)
+  - CloudTrail Insights events capture unusual activity
+  - Insights events are logged only when CloudTrail detects changes in your account's API usage that differ significantly from the account's typical usage patterns
+  - Example = Your account typically logs 20 calls per minute to the Amazon EC2 AuthorizeSecurityGroupIngress API, but your account starts to log zero calls to AuthorizeSecurityGroupIngress
 
+Best practices
+1. Create a trail and apply that trail to all AWS Regions
+2. Enable CloudTrail log file integrity
+3. Integrate with Amazon CloudWatch Logs
+4. Log to a dedicated and centralized Amazon S3 bucket
+5. Use server-side encryption with AWS KMS managed keys
+6. Implement least privilege access and enable MFA Delete
+7. Limit access to the AWSCloudTrailFullAccess policy
+
+Notifications
+- You can be notified when CloudTrail publishes new log files to your Amazon S3 bucket. You manage notifications using SNS.
+- CloudTrail sends a notification when log files are written to the Amazon S3 bucket
 
 #### KMS
+AWS Key Management Service (AWS KMS) is a managed service that makes it easy for you to create and control customer master keys (CMKs)
+- The primary way to manage access to your AWS KMS CMKs is with policies
+- Key policies are the primary way to control access to customer master keys (CMKs) in AWS KMS. They are not the only way to control access, but you cannot control access without them.
 
+AWS KMS supports symmetric and asymmetric CMKs.
+- Symmetric CMK: Represents a single 256-bit secret encryption key that never leaves AWS KMS unencrypted. To use your symmetric CMK, you must call AWS KMS.
+- Asymmetric CMK: Represents a mathematically related public key and private key pair that you can use for encryption and decryption or signing and verification, but not both. The private key never leaves AWS KMS unencrypted. You can use the public key within AWS KMS by calling the AWS KMS API operations, or download the public key and use it outside of AWS KMS.
+
+Valid key usage for CMK types
+| CMK Type | Encrypt and decrypt | sign and verify |
+| --------|---------|-------|
+| Symmetric CMKs  | Yes | No |
+| Asymmetric CMKs with RSA key pairs | Yes | Yes |
+| Asymmetric CMKs with ECC key pairs | No | Yes |
 
 #### Parameter Store
 
