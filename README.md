@@ -181,10 +181,10 @@ Do not store sensitive data in a String or StringList parameter. For all sensiti
 
 SecureString
 The SecureString parameter type can be used for textual data that you want to encrypt, such as passwords, application secrets, confidential configuration data, or any other types of data you need to protect. SecureString data is encrypted and decrypted using a AWS Key Management Service (KMS) key. You can use either a default KMS key provided by AWS or create and use your own customer master key (CMK). Use cases for using SecureString:
-    - You want to use data/parameters across AWS services without exposing the values as plain text in commands, functions, agent logs, or AWS CloudTrail logs.
-    - You want to control who has access to sensitive data.
-    - You want to be able to audit when sensitive data is accessed (AWS CloudTrail).
-    - You want to encrypt your sensitive data and you want to bring your own encryption keys to manage access.
+- You want to use data/parameters across AWS services without exposing the values as plain text in commands, functions, agent logs, or AWS CloudTrail logs.
+- You want to control who has access to sensitive data.
+- You want to be able to audit when sensitive data is accessed (AWS CloudTrail).
+- You want to encrypt your sensitive data and you want to bring your own encryption keys to manage access.
 
 #### Secrets Manager
 
